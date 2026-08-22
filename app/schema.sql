@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS dataset (
   prompt VARCHAR(256),
   weight INT,
   sensitivity CHAR(1) CHECK (sensitivity IN ('S', 'E', 'Q')),
+  enabled BOOLEAN NOT NULL DEFAULT TRUE,
   flags VARCHAR(1024),
   approved BOOL,
   rejected BOOLEAN NOT NULL DEFAULT FALSE,

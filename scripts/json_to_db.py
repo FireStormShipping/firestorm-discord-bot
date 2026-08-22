@@ -59,15 +59,16 @@ class Db(object):
         Returns True if managed to add all prompts to the DB,
         otherwise False if any fails.
         """
-        insert_sql = "INSERT INTO dataset (pool, prompt, weight, sensitivity, flags, approved) VALUES (?, ?, ?, ?, ?, ?)"
+        insert_sql = "INSERT INTO dataset (pool, prompt, weight, sensitivity, enabled, flags, approved) VALUES (?, ?, ?, ?, ?, ?, ?)"
         prompts_to_insert = []
         for entry in entries:
             prompt = entry["text"]
             weight = entry["weight"] if "weight" in entry else 1
             sensitivity = entry["sensitivity"] if "sensitivity" in entry else "S"
+            enabled = entry["enabled"] if "enabled" in entry else True
             flags = ",".join(entry["flags"]) if "flags" in entry else ""
             prompts_to_insert.append(
-                (pool, prompt, weight, sensitivity, flags, True)
+                (pool, prompt, weight, sensitivity, enabled, flags, True)
             )
         logger.info(f"Number of prompts found in dataset: {len(prompts_to_insert)}")
         logger.info("Attempting to store into database now...")

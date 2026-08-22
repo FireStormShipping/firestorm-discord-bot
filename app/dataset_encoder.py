@@ -31,6 +31,7 @@ class TableEncoder(Encoder):
             "Prompt | "
             "Weight | "
             "Sensitivity | "
+            "Enabled | "
             "Flags |\n"
         )
         return row
@@ -43,6 +44,7 @@ class TableEncoder(Encoder):
             f"{obj.prompt} | "
             f"{obj.weight} | "
             f"{obj.sensitivity} | "
+            f"{obj.enabled} | "
             f"{obj.flags} |\n"
         )
         return row
@@ -67,6 +69,8 @@ class JsonEncoder(Encoder):
             data["weight"] = obj.weight
         if obj.sensitivity != 'S':
             data["sensitivity"] = obj.sensitivity
+        if not obj.enabled:
+            data["enabled"] = False
         if obj.flags != "":
             data["flags"] = [flag.strip() for flag in obj.flags.split(",")]
         return data
