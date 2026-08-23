@@ -30,7 +30,7 @@ docker compose up -d
 sudo apt-get install -y libmariadb-dev python3-venv
 python3 -m venv venv
 source venv/bin/activate
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt pytest
 ```
 
 ### Running with Docker
@@ -38,12 +38,22 @@ pip3 install -r requirements.txt
 
 ### Running without Docker
 ```bash
+# Option 1
+source venv/bin/activate
 python3 -m app.main
+
+# Option 2
+./venv/bin/python3 -m app.main
 ```
 
 ### Running unittests
 ```bash
-nose2
+# Option 1
+source venv/bin/activate
+pytest
+
+# Option 2
+./venv/bin/pytest
 ```
 
 ## Misc. Scripts
