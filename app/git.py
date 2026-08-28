@@ -81,7 +81,7 @@ class GitWrapper:
         )
 
         if response.status_code != 200:
-            return RuntimeError(str(response.json()))
+            raise RuntimeError(str(response.json()))
         resp = response.json()
         return resp["message"]
 

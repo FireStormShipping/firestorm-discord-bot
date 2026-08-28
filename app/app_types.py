@@ -6,7 +6,8 @@ class DatasetEntry:
         prompt: str,
         weight: int,
         sensitivity: str,
-        flags: str,
+        enabled: bool = True,
+        flags: str = "",
         approved: bool = True,
         rejected: bool = False,
         rejection_reason: str = "",
@@ -16,6 +17,7 @@ class DatasetEntry:
         self.prompt = prompt
         self.weight = weight
         self.sensitivity = sensitivity
+        self.enabled = enabled
         self.flags = flags
         self.approved = approved
         self.rejected = rejected

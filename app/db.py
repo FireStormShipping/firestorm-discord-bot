@@ -144,7 +144,7 @@ class Db:
             # Return the new updated entry
             self.cur.execute("SELECT * FROM dataset WHERE id = ?", (uid,))
             row = self.cur.fetchone()
-            entry = DatasetEntry(row[0], row[1], row[2], row[3], row[4], row[5], row[6] == 1)
+            entry = DatasetEntry(row[0], row[1], row[2], row[3], row[4], row[5] == 1, row[6], row[7] == 1)
             return entry
         except mariadb.Error as e:
             logger.warning(f"Failed to delete {id}: {e}")
@@ -177,7 +177,7 @@ class Db:
         try:
             self.cur.execute("SELECT * FROM dataset where approved = 0 AND rejected = 0")
             for row in self.cur:
-                entry = DatasetEntry(row[0], row[1], row[2], row[3], row[4], row[5])
+                entry = DatasetEntry(row[0], row[1], row[2], row[3], row[4], row[5]==1, row[6])
                 entries.append(entry)
         except mariadb.Error as e:
             logger.warning(f"Error retrieving pools: {e}")
@@ -189,7 +189,7 @@ class Db:
             self.cur.execute("SELECT * FROM dataset where approved = 0 AND rejected = 1")
             for row in self.cur:
                 entry = DatasetEntry(
-                    row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]
+                    row[0], row[1], row[2], row[3], row[4], row[5]==1, row[6], row[7]==1, row[8], row[9]
                 )
                 entries.append(entry)
         except mariadb.Error as e:
@@ -211,7 +211,7 @@ class Db:
         try:
             self.cur.execute("SELECT * FROM dataset WHERE pool = ? AND approved = 1", (pool,))
             for row in self.cur:
-                entry = DatasetEntry(row[0], row[1], row[2], row[3], row[4], row[5])
+                entry = DatasetEntry(row[0], row[1], row[2], row[3], row[4], row[5]==1, row[6])
                 entries.append(entry)
         except mariadb.Error as e:
             logger.warning(f"Error showing pool {pool}: {e}")
